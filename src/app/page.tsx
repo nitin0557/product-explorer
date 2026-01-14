@@ -44,7 +44,7 @@ export default function HomePage() {
       .toLowerCase()
       .includes(debouncedSearch.toLowerCase());
     const matchesCategory = category === "all" || p.category === category;
-    const matchesFavorite = !showFavorites || favorites.includes(p.id);
+    const matchesFavorite = !showFavorites || favorites.includes(p.id.toString());
     return matchesSearch && matchesCategory && matchesFavorite;
   });
 
