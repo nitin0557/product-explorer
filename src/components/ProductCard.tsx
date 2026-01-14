@@ -23,7 +23,7 @@ export default function ProductCard({ product }: Props) {
 
       <div className="flex justify-between items-center mt-2">
         <span className="font-bold">₹{product.price}</span>
-        <FavoriteButton productId={product.id} />
+        <FavoriteButton  productId={product.id.toString()}/>
       </div>
 
       <p className="text-sm text-gray-500 mt-1">{product.category}</p>

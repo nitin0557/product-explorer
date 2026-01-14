@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getFavorites, toggleFavorite } from "@/lib/storage";
 
 interface Props {
-  productId: number;
+  productId: string;
 }
 
 export default function FavoriteButton({ productId }: Props) {
@@ -14,10 +14,10 @@ export default function FavoriteButton({ productId }: Props) {
     setFavorites(getFavorites());
   }, []);
 
-  const isFavorite = favorites.includes(productId);
+const isFavorite = favorites.includes(Number(productId));
 
   const handleToggle = () => {
-    const updated = toggleFavorite(productId);
+    const updated = toggleFavorite(Number(productId));
     setFavorites(updated);
   };
 
