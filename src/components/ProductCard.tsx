@@ -10,7 +10,7 @@ export default function ProductCard({ product }: Props) {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
       <Link
-        href={`/products/${product.id.toString()}`}
+        href={`/products/${product.id}`}
         aria-label={`View ${product.title}`}
       >
         <img
