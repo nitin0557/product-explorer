@@ -1,17 +1,18 @@
-export const FAVORITES_KEY = "favorite_products";
+const FAVORITES_KEY = "favorites";
 
-export function getFavorites(): number[] {
+export function getFavorites(): string[] {
   if (typeof window === "undefined") return [];
-  const stored = localStorage.getItem(FAVORITES_KEY);
-  return stored ? JSON.parse(stored) : [];
+  return JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]");
 }
 
-export function toggleFavorite(id: number): number[] {
-  const favorites = getFavorites();
-  const updated = favorites.includes(id)
-    ? favorites.filter(fid => fid !== id)
-    : [...favorites, id];
-
+export function toggleFavorite(productId: string): string[] {
+  const current = getFavorites();
+  let updated: string[];
+  if (current.includes(productId)) {
+    updated = current.filter(id => id !== productId);
+  } else {
+    updated = [...current, productId];
+  }
   localStorage.setItem(FAVORITES_KEY, JSON.stringify(updated));
   return updated;
 }

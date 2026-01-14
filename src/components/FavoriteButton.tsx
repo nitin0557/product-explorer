@@ -8,16 +8,16 @@ interface Props {
 }
 
 export default function FavoriteButton({ productId }: Props) {
-  const [favorites, setFavorites] = useState<number[]>([]);
+  const [favorites, setFavorites] = useState<string[]>([]);
 
   useEffect(() => {
     setFavorites(getFavorites());
   }, []);
 
-const isFavorite = favorites.includes(Number(productId));
+const isFavorite = favorites.includes((productId));
 
   const handleToggle = () => {
-    const updated = toggleFavorite(Number(productId));
+    const updated = toggleFavorite((productId));
     setFavorites(updated);
   };
 

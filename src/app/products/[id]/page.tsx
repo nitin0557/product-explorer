@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { fetchProductById } from "@/lib/api";
 import FavoriteButton from "@/components/FavoriteButton";
 
@@ -39,10 +40,12 @@ export default async function ProductDetails({ params }: Props) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6 flex items-center justify-center">
-          <img
+          <Image
             src={product.image}
             alt={product.title}
-            className="max-h-[400px] object-contain"
+            width={400}
+            height={400}
+            className="object-contain"
           />
         </div>
 
