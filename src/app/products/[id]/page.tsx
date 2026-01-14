@@ -1,30 +1,21 @@
 import Link from "next/link";
-import Image from "next/image";
 import { fetchProductById } from "@/lib/api";
 import FavoriteButton from "@/components/FavoriteButton";
 
 interface Props {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default async function ProductDetails({ params }: Props) {
-  const { id } = params;
+  const { id } = await params;
 
   let product;
   try {
     product = await fetchProductById((id));
-  } catch (err) {
+  } catch {
     return (
       <div className="min-h-[60vh] flex items-center justify-center text-red-500">
         Failed to load product. Please refresh.
-      </div>
-    );
-  }
-
-  if (!product) {
-    return (
-      <div className="min-h-[60vh] flex items-center justify-center text-gray-700">
-        Product not found.
       </div>
     );
   }
@@ -41,23 +32,21 @@ export default async function ProductDetails({ params }: Props) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         {/* Image Section */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6 flex items-center justify-center">
-          <Image
+        <div className="bg-white rounded-xl shadow p-6 flex items-center justify-center">
+          <img
             src={product.image}
             alt={product.title}
-            width={400}
-            height={400}
-            className="object-contain"
+            className="max-h-[400px] object-contain"
           />
         </div>
 
         {/* Details Section */}
         <div className="flex flex-col">
-          <span className="text-sm uppercase tracking-wide text-gray-500 dark:text-gray-400">
+          <span className="text-sm uppercase tracking-wide text-gray-500">
             {product.category}
           </span>
 
-          <h1 className="text-2xl md:text-3xl font-bold mt-2 text-black dark:text-white">
+          <h1 className="text-2xl md:text-3xl font-bold mt-2">
             {product.title}
           </h1>
 
@@ -65,33 +54,26 @@ export default async function ProductDetails({ params }: Props) {
             ₹{product.price}
           </p>
 
-          <p className="text-gray-600 dark:text-gray-300 mt-4 leading-relaxed">
+          <p className="text-gray-600 mt-4 leading-relaxed">
             {product.description}
           </p>
 
           {/* Actions */}
           <div className="flex items-center gap-4 mt-6">
-            <button
-              type="button"
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
-            >
+            <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
               Buy Now
             </button>
 
             <div className="flex items-center gap-2">
               <FavoriteButton productId={product.id.toString()} />
-              <span className="text-sm text-gray-600 dark:text-gray-300">
-                Add to Favorites
-              </span>
+              <span className="text-sm text-gray-600">Add to Favorites</span>
             </div>
           </div>
 
           {/* Info Card */}
-          <div className="mt-8 border rounded-lg p-4 bg-gray-50 dark:bg-gray-900">
-            <h3 className="font-semibold mb-2 text-black dark:text-white">
-              Product Information
-            </h3>
-            <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+          <div className="mt-8 border rounded-lg p-4 bg-gray-50">
+            <h3 className="font-semibold mb-2">Product Information</h3>
+            <ul className="text-sm text-gray-700 space-y-1">
               <li>
                 <strong>Category:</strong> {product.category}
               </li>
