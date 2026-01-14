@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default async function ProductDetails({ params }: Props) {
-const resolvedParams = params instanceof Promise ? await params : params;
+const resolvedParams = params;
   const { id } = resolvedParams;
 
 
