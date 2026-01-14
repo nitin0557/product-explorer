@@ -3,32 +3,19 @@
 import { useEffect, useState } from "react";
 import { getFavorites, toggleFavorite } from "@/lib/storage";
 
-interface Props {
-  productId: string;
-}
-
-export default function FavoriteButton({ productId }: Props) {
+export default function FavoriteButton({ productId }: { productId: string }) {
   const [favorites, setFavorites] = useState<string[]>([]);
 
   useEffect(() => {
-    setFavorites(getFavorites()); // string[]
+    setFavorites(getFavorites().map(String));
   }, []);
 
   const isFavorite = favorites.includes(productId);
 
   const handleToggle = () => {
-    // ✅ pass string, not number
-    const updated = toggleFavorite(productId);
-    setFavorites(updated);
+    const updated = toggleFavorite(Number(productId));
+    setFavorites(updated.map(String));
   };
 
-  return (
-    <button
-      onClick={handleToggle}
-      aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
-      className="text-2xl"
-    >
-      {isFavorite ? "⭐" : "☆"}
-    </button>
-  );
+  return <button onClick={handleToggle}>{isFavorite ? "⭐" : "☆"}</button>;
 }
