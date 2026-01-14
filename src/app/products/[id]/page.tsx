@@ -3,11 +3,11 @@ import { fetchProductById } from "@/lib/api";
 import FavoriteButton from "@/components/FavoriteButton";
 
 interface Props {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }
 
 export default async function ProductDetails({ params }: Props) {
-  const { id } = await params;
+  const { id } =  params;
 
   let product;
   try {
