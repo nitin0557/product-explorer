@@ -11,20 +11,21 @@ export default function FavoriteButton({ productId }: Props) {
   const [favorites, setFavorites] = useState<string[]>([]);
 
   useEffect(() => {
-    setFavorites(getFavorites());
+    setFavorites(getFavorites()); // string[]
   }, []);
 
-const isFavorite = favorites.includes((productId));
+  const isFavorite = favorites.includes(productId);
 
   const handleToggle = () => {
-    const updated = toggleFavorite((productId));
+    // ✅ pass string, not number
+    const updated = toggleFavorite(productId);
     setFavorites(updated);
   };
 
   return (
     <button
       onClick={handleToggle}
-      aria-label="Toggle Favorite"
+      aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
       className="text-2xl"
     >
       {isFavorite ? "⭐" : "☆"}

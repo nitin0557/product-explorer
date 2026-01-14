@@ -12,7 +12,7 @@ export default async function ProductDetails({ params }: Props) {
 
   let product;
   try {
-    product = await fetchProductById((id));
+    product = await fetchProductById(Number(id));
   } catch {
     return (
       <div className="min-h-[60vh] flex items-center justify-center text-red-500">
