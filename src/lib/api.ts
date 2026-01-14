@@ -14,9 +14,9 @@ export async function fetchProducts(): Promise<Product[]> {
   return res.json();
 }
 
-export async function fetchProductById(id: number): Promise<Product> {
-  const res = await fetch(`${BASE_URL}/products/${id}`, {
-    cache: "no-store", // important
+export async function fetchProductById(id: number | string) {
+  const res = await fetch(`https://fakestoreapi.com/products/${id}`, {
+    cache: "no-store",
   });
 
   if (!res.ok) {
@@ -25,3 +25,4 @@ export async function fetchProductById(id: number): Promise<Product> {
 
   return res.json();
 }
+
