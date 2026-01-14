@@ -13,7 +13,7 @@ export default function FavoriteButton({ productId }: { productId: string }) {
   const isFavorite = favorites.includes(productId);
 
   const handleToggle = () => {
-    const updated = toggleFavorite(Number(productId));
+    const updated = toggleFavorite((productId));
     setFavorites(updated.map(String));
   };
 
